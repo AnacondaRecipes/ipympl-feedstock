@@ -25,7 +25,7 @@ requirements:
         - python
         - ipywidgets >=7.5.0,<8.0
         - ipykernel >=4.7
-        - matplotlib-base >=2.2.0
+        - matplotlib >=2.2.0
         - six
 
 test:
