@@ -12,6 +12,8 @@ source:
 
 build:
   number: 0
+  # It's currently not supported on s390x
+  skip: True  # [s390x]
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
@@ -23,7 +25,6 @@ requirements:
     - pip
     - setuptools >=40.8.0
     - wheel
-    - yarn
   run:
     - python
     - ipython <9
