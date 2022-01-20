@@ -58,6 +58,8 @@ about:
   license_family: BSD
   license_file: LICENSE
   summary: Matplotlib Jupyter Extension
+  dev_url: https://github.com/matplotlib/ipympl
+  doc_url: https://github.com/matplotlib/ipympl/blob/master/README.md
 
 extra:
   recipe-maintainers:
