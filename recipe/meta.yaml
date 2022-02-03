@@ -24,7 +24,7 @@ requirements:
     - jupyter-packaging =0.7
     - jupyterlab =3
     - pip
-    - setuptools >=40.8.0
+    - setuptools
     - wheel
     # Needed for setup process
     - yarn
