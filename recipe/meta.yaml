@@ -21,8 +21,8 @@ build:
 requirements:
   host:
     - python
-    - jupyter-packaging =0.7
-    - jupyterlab =3
+    - jupyter-packaging >=0.7
+    - jupyterlab >=3
     - pip
     - setuptools
     - wheel
