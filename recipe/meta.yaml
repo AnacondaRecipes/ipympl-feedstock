@@ -1,5 +1,5 @@
-{% set version = "0.8.6" %}
-{% set sha256 = "d0f4f613aaa4134be0be1e4eefa99182b063701ee47f9b91a6efe19bdc4119c5" %}
+{% set version = "0.8.7" %}
+{% set sha256 = "c69f55668758e6e18ab5754ed3e6f74faea81939594467717345f1ca62858b3d" %}
 
 package:
   name: ipympl
@@ -21,8 +21,8 @@ build:
 requirements:
   host:
     - python
-    - jupyter-packaging =0.7
-    - jupyterlab =3
+    - jupyter-packaging >=0.7.0
+    - jupyterlab >=3.0.0,==3.*
     - pip
     - setuptools >=40.8.0
     - wheel
