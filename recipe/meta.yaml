@@ -21,15 +21,15 @@ build:
 requirements:
   host:
     - python
-    - jupyter-packaging ~=0.7.0
-    - jupyterlab ~=3.0.0
+    - jupyter-packaging =0.7
+    - jupyterlab =3
     - pip
     - setuptools >=40.8.0
     - wheel
     # Needed for setup process
     - yarn
   run:
-    - python
+    - python >=3.6
     - ipython <9
     - numpy
     - ipython_genutils
