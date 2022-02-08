@@ -22,7 +22,7 @@ requirements:
   host:
     - python
     - jupyter-packaging ~=0.7
-    - jupyterlab ~=3.*
+    - jupyterlab ~=3
     - pip
     - setuptools >=40.8.0
     - wheel
@@ -35,7 +35,7 @@ requirements:
     - ipython_genutils
     - pillow
     - traitlets <6
-    - ipywidgets >=7.6.0,<8.0
+    - ipywidgets >=7.6.0,<8
     - matplotlib-base >=2.0.0,<4
 
 test:
