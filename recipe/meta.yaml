@@ -13,7 +13,7 @@ source:
 build:
   number: 0
   # It's currently not supported on s390x. 
-  # Yarn is unsatisfiable dependency on s390x
+  # Yarn is unsatisfiable dependency on s390x.
   skip: True  # [s390x]
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
