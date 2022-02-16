@@ -1,44 +1,65 @@
-{% set version = "0.7.0" %}
-{% set sha256 = "f0f1f356d8cb9d4fb51bb86dbbf837c190145316cb72f66081872ebc4d6db0a1" %}
+{% set version = "0.8.7" %}
+{% set sha256 = "c69f55668758e6e18ab5754ed3e6f74faea81939594467717345f1ca62858b3d" %}
 
 package:
-    name: ipympl
-    version: {{ version }}
+  name: ipympl
+  version: {{ version }}
 
 source:
-    fn: ipympl-{{ version }}.tar.gz
-    url: https://pypi.io/packages/source/i/ipympl/ipympl-{{ version }}.tar.gz
-    sha256: {{ sha256 }}
+  fn: ipympl-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/i/ipympl/ipympl-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
 
 build:
-    number: 0
-    noarch: python
-    script: python -m pip install --no-deps --ignore-installed .
+  number: 0
+  # It's currently not supported on s390x. 
+  # Yarn is unsatisfiable dependency on s390x.
+  skip: True  # [s390x]
+  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
-    build:
-        - python
-        - setuptools
-        - jupyter
-        - pip
-        - jupyter-packaging
-    run:
-        - python
-        - ipywidgets >=7.5.0,<8.0
-        - ipykernel >=4.7
-        - matplotlib >=2.2.0
-        - six
+  host:
+    - python
+    - jupyter-packaging >=0.7.0,<1
+    - jupyterlab >=3.0.0
+    - pip
+    - setuptools >=40.8.0
+    - wheel
+    # Needed for setup process
+    - yarn
+  run:
+    - python >=3.6
+    - ipython <9
+    - numpy
+    - ipython_genutils
+    - pillow
+    - traitlets <6
+    - ipywidgets >=7.6.0,<8
+    - matplotlib-base >=2.0.0,<4
 
 test:
-    imports:
-        - ipympl
+  imports:
+    - ipympl
+  requires:
+    - pip
+  commands:
+    - pip check
+    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/extension.js                     # [unix]
+    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/index.js                         # [unix]
+    - test -f ${PREFIX}/share/jupyter/labextensions/jupyter-matplotlib/package.json                    # [unix]
+    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\extension.js (exit 1)   # [win]
+    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\index.js (exit 1)       # [win]
+    - if not exist %PREFIX%\\share\\jupyter\\labextensions\\jupyter-matplotlib\\package.json (exit 1)  # [win]
 
 about:
-    home: https://github.com/matplotlib/jupyter-matplotlib
-    license: BSD 3-Clause
-    license_family: BSD
-    license_file: LICENSE
-    summary: Matplotlib Jupyter Extension
+  home: https://github.com/matplotlib/ipympl
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Matplotlib Jupyter Extension
+  dev_url: https://github.com/matplotlib/ipympl
+  doc_url: https://github.com/matplotlib/ipympl/blob/master/README.md
 
 extra:
   recipe-maintainers:
