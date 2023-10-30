@@ -1,28 +1,26 @@
-{% set version = "0.8.7" %}
-{% set sha256 = "c69f55668758e6e18ab5754ed3e6f74faea81939594467717345f1ca62858b3d" %}
+{% set name = "ipympl" %}
+{% set version = "0.9.3" %}
+{% set sha256 = "49bab75c05673a6881d1aaec5d8ac81d4624f73d292d154c5fb7096f10236a2b" %}
 
 package:
-  name: ipympl
+  name: {{ name }}
   version: {{ version }}
 
 source:
   fn: ipympl-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/i/ipympl/ipympl-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  # It's currently not supported on s390x. 
-  # Yarn is unsatisfiable dependency on s390x.
-  skip: True  # [s390x]
   noarch: python
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -v
 
 requirements:
   host:
     - python
     - jupyter-packaging >=0.7.0,<1
-    - jupyterlab >=3.0.0
+    - jupyterlab =3
     - pip
     - setuptools >=40.8.0
     - wheel
@@ -35,8 +33,8 @@ requirements:
     - ipython_genutils
     - pillow
     - traitlets <6
-    - ipywidgets >=7.6.0,<8
-    - matplotlib-base >=2.0.0,<4
+    - ipywidgets >=7.6.0,<9
+    - matplotlib-base >=3.4.0,<4
 
 test:
   imports:
@@ -58,8 +56,9 @@ about:
   license_family: BSD
   license_file: LICENSE
   summary: Matplotlib Jupyter Extension
+  description: Matplotlib Jupyter Extension
   dev_url: https://github.com/matplotlib/ipympl
-  doc_url: https://github.com/matplotlib/ipympl/blob/master/README.md
+  doc_url: https://matplotlib.org/ipympl/
 
 extra:
   recipe-maintainers:
