@@ -7,7 +7,6 @@ package:
   version: {{ version }}
 
 source:
-  fn: ipympl-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
@@ -15,8 +14,7 @@ build:
   number: 0
   # It's currently not supported on s390x.
   # Yarn is unsatisfiable dependency on s390x.
-  skip: True  # [s390x]
-  noarch: python
+  skip: True  # [s390x or py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -v
 
 requirements:
@@ -30,7 +28,7 @@ requirements:
     # Needed for setup process
     - yarn
   run:
-    - python >=3.6
+    - python
     - ipython <9
     - numpy
     - ipython_genutils
