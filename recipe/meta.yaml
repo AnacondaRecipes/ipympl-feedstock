@@ -27,6 +27,7 @@ requirements:
     - yarn
     - hatchling
     - hatch-nodejs-version >=0.3.2
+    - hatch-jupyter-builder >=0.8.1
   run:
     - python
     - ipython <10
