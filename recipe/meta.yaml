@@ -1,41 +1,38 @@
 {% set name = "ipympl" %}
-{% set version = "0.9.3" %}
-{% set sha256 = "49bab75c05673a6881d1aaec5d8ac81d4624f73d292d154c5fb7096f10236a2b" %}
+{% set version = "0.9.7" %}
+{% set sha256 = "3e505a56b6e9a7bfc4d40c1a861a0547adb16820eb67ec79131335dd0a5084f0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
-  # It's currently not supported on s390x.
-  # Yarn is unsatisfiable dependency on s390x.
-  skip: True  # [s390x or py<38]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -v
 
 requirements:
   host:
     - python
-    - jupyter-packaging >=0.7.0,<1
-    - jupyterlab =3
+    - jupyterlab ==4.*
     - pip
-    - setuptools >=40.8.0
-    - wheel
     # Needed for setup process
     - yarn
+    - hatchling
+    - hatch-nodejs-version >=0.3.2
+    - hatch-jupyter-builder >=0.8.3
   run:
     - python
-    - ipython <9
+    - ipython <10
     - numpy
-    - ipython_genutils
     - pillow
     - traitlets <6
     - ipywidgets >=7.6.0,<9
-    - matplotlib-base >=3.4.0,<4
+    - matplotlib-base >=3.5.0,<4
 
 test:
   imports:
@@ -44,11 +41,11 @@ test:
     - pip
   commands:
     - pip check
-    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/extension.js                     # [unix]
-    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/index.js                         # [unix]
-    - test -f ${PREFIX}/share/jupyter/labextensions/jupyter-matplotlib/package.json                    # [unix]
-    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\extension.js (exit 1)   # [win]
-    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\index.js (exit 1)       # [win]
+    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/extension.js  # [unix]
+    - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/index.js  # [unix]
+    - test -f ${PREFIX}/share/jupyter/labextensions/jupyter-matplotlib/package.json  # [unix]
+    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\extension.js (exit 1)  # [win]
+    - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\index.js (exit 1)  # [win]
     - if not exist %PREFIX%\\share\\jupyter\\labextensions\\jupyter-matplotlib\\package.json (exit 1)  # [win]
 
 about:
