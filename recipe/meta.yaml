@@ -1,6 +1,5 @@
 {% set name = "ipympl" %}
-{% set version = "0.9.7" %}
-{% set sha256 = "3e505a56b6e9a7bfc4d40c1a861a0547adb16820eb67ec79131335dd0a5084f0" %}
+{% set version = "0.9.8" %}
 
 package:
   name: {{ name }}
@@ -8,45 +7,50 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 6d7230d518384521093f3854f7db89d069dcd9c28a935b371e9c9f126354dee1
 
 build:
   number: 0
-  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -v
+  skip: true  # [py<39]
 
 requirements:
   host:
-    - python
-    - jupyterlab ==4.*
     - pip
+    - python
     # Needed for setup process
     - yarn
     - hatchling
+    - jupyterlab ==4.*
     - hatch-nodejs-version >=0.3.2
     - hatch-jupyter-builder >=0.8.3
   run:
     - python
     - ipython <10
+    - ipywidgets >=7.6.0,<9
+    - matplotlib-base >=3.5.0,<4
     - numpy
     - pillow
     - traitlets <6
-    - ipywidgets >=7.6.0,<9
-    - matplotlib-base >=3.5.0,<4
 
 test:
+  source_files:
+    - tests
   imports:
     - ipympl
-  requires:
-    - pip
   commands:
     - pip check
+    - pytest -v tests
     - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/extension.js  # [unix]
     - test -f ${PREFIX}/share/jupyter/nbextensions/jupyter-matplotlib/index.js  # [unix]
     - test -f ${PREFIX}/share/jupyter/labextensions/jupyter-matplotlib/package.json  # [unix]
     - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\extension.js (exit 1)  # [win]
     - if not exist %PREFIX%\\share\\jupyter\\nbextensions\\jupyter-matplotlib\\index.js (exit 1)  # [win]
     - if not exist %PREFIX%\\share\\jupyter\\labextensions\\jupyter-matplotlib\\package.json (exit 1)  # [win]
+  requires:
+    - pip
+    - pytest
+    - importlib_metadata
 
 about:
   home: https://github.com/matplotlib/ipympl
@@ -56,7 +60,7 @@ about:
   summary: Matplotlib Jupyter Extension
   description: Matplotlib Jupyter Extension
   dev_url: https://github.com/matplotlib/ipympl
-  doc_url: https://matplotlib.org/ipympl/
+  doc_url: https://matplotlib.org/ipympl
 
 extra:
   recipe-maintainers:
