@@ -1,5 +1,5 @@
 {% set name = "ipympl" %}
-{% set version = "0.9.8" %}
+{% set version = "0.10.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6d7230d518384521093f3854f7db89d069dcd9c28a935b371e9c9f126354dee1
+  sha256: eda69602a010af2a42e8ebd069b0ee0dbe8df7fc69d7c1e8b99fece0a2fe613f
 
 build:
   number: 0
